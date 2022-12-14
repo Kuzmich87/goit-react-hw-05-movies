@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Header = styled.header`
   color: #c4c4c4;
-  background-color: #3f3f40;
+  background-color: #c47c2f;
 `;
 
 export const NavList = styled.ul`
@@ -22,6 +22,7 @@ export const NavItem = styled.li`
 
 export const Link = styled(NavLink)`
   &.active {
-    color: #fc813f;
+    color: #288c1f;
   }
+  cursor: pointer;
 `;

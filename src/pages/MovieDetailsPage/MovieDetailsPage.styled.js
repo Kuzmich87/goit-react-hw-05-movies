@@ -5,7 +5,7 @@ export const GoBackButton = styled.button`
   display: flex;
   align-items: center;
   color: #ffffff;
-  background-color: #3f3f40;
+  background-color: #c47c2f;
   padding: 8px;
   margin-top: 20px;
   margin-left: 20px;
