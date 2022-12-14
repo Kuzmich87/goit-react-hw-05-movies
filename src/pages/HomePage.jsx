@@ -5,17 +5,16 @@ import { fetchFilms } from '../services/servicesApi';
 
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
+  const [status, setStatus] = useState('pending');
   const location = useLocation();
 
   useEffect(() => {
-    (async function fetchMovies() {
-      try {
-        const data = await fetchFilms();
-        setMovies(data);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    fetchFilms()
+      .then(result => {
+        setMovies(result);
+        setStatus('resolved');
+      })
+      .catch(() => setStatus('rejected'));
   }, []);
 
   return (
