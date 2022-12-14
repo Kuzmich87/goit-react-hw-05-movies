@@ -9,9 +9,10 @@ export const Header = styled.header`
 export const NavList = styled.ul`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   font-size: 24px;
   padding: 24px 0;
+  margin-left:50px;
 `;
 
 export const NavItem = styled.li`
