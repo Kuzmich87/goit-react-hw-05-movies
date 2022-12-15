@@ -5,7 +5,7 @@ import { fetchFilms } from '../services/servicesApi';
 
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
-  const [setStatus] = useState('pending');
+  const [status, setStatus] = useState('pending');
   const location = useLocation();
 
   useEffect(() => {

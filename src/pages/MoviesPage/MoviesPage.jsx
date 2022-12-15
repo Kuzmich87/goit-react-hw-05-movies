@@ -7,33 +7,22 @@ import { Button, Form, Input } from './MoviesPage.styled';
 
 export default function MoviesPage(params) {
   const [query, setQuery] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({});
   const [movies, setMovies] = useState([]);
+  const [status, setStatus] = useState('idle');
   const location = useLocation();
 
   useEffect(() => {
     if (!searchParams.get('query')) {
       return;
     }
-    (async function fetchMovies() {
-      try {
-        const response = await fetchSearchMovies(searchParams);
-        setMovies(response);
-        if (!response.length) {
-          toast.info('Nothing found for your request', {
-            position: 'top-center',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+
+    fetchSearchMovies(searchParams)
+      .then(result => {
+        setMovies(result);
+        setStatus('resolved');
+      })
+      .catch(() => setStatus('rejected'));
   }, [searchParams]);
 
   const handlChange = e => {
