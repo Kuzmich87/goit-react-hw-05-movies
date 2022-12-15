@@ -23,19 +23,20 @@ import { fetchDetailsFilm } from 'services/servicesApi';
 export default function MoviesDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [status, setStatus] = useState('idle');
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    (async function datailsFilm() {
-      try {
-        const data = await fetchDetailsFilm(movieId);
-        setMovie(data);
-      } catch (error) {
-        navigate('/');
-      }
-    })();
-  }, [movieId, navigate]);
+    setStatus('pending');
+
+    fetchDetailsFilm(movieId)
+      .then(result => {
+        setMovie(result);
+        setStatus('resolved');
+      })
+      .catch(() => setStatus('rejected'));
+  }, [movieId]);
 
   function goBack() {
     navigate(location?.state?.from ?? '/');
