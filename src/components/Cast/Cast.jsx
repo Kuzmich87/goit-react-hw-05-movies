@@ -13,17 +13,16 @@ import avatar from '../../images/no-avatar.jpeg';
 
 export default function Cast() {
   const [actorsList, setActorsList] = useState(null);
+  const [status, setStatus] = useState('pending');
   const { movieId } = useParams();
 
   useEffect(() => {
-    (async function fetchActors() {
-      try {
-        const response = await fetchActorList(movieId);
-        setActorsList(response);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    fetchActorList(movieId)
+      .then(result => {
+        setActorsList(result);
+        setStatus('resolved');
+      })
+      .catch(() => setStatus('rejected'));
   }, [movieId]);
 
   return (
